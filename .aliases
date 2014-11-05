@@ -1,0 +1,78 @@
+##################
+##  MY ALIASES  ##
+##################
+# COLORS #
+##########
+#Color ls setup.
+#eval $(dircolors.sparc ~/.ls_colors)
+eval `dircolors -b $HOME/.dir_colors 2>/dev/null`
+#################
+# END OF COLORS #
+#################
+alias aa='echo $@'
+
+alias ls='ls -lrt --color'
+alias lsd='ls -l --color | grep "^d"'
+alias lsdo='ls -a --color=none | grep "\ \."'
+alias ext='exit'
+alias droid='/home/eric/go/bin/go-mtpfs /home/eric/G4Active'
+alias l='ls -l'
+alias la='ls -alF'
+alias lrt='ls -lrt'
+alias lart='ls -alrt'
+alias new='clear; date'
+alias r='fc -e -'
+alias BitchX='BitchX -a'
+alias vdiff='vim -d'
+alias fuckdiff='echo "diff original <patched&filetobepatched> > this.patch"'
+alias myuse="python -c \"import portage; print portage.settings['USE']\""
+#alias python='bash -lc python'
+#alias dict="edict"
+alias dict="dict.py"
+alias define="dict.py"
+alias thes="ethes"
+#alias omutt="mutt -F ~/.muttrc.opelousas.org"
+#alias wmutt="mutt -F ~/.muttrc.tonychachere.com"
+#alias tmutt="mutt -F ~/.muttrc.test"
+#alias switchto='sudo switchto'
+#alias switcher='/home/eric/bin/switcher'
+alias vnc='vncviewer'
+alias less='less -q -R'
+alias wiki='rox /home/eric/Apps/Ewiki'
+alias emerge='sudo emerge'
+alias survey="history 1|awk '{a[\$2]++} END{for(i in a){printf \"%5d\t%s \n\",a[i],i}}'|sort -rn|head"
+#alias diff="colordiff"
+alias sudo='sudo -E'
+alias grep='grep --color=always'
+alias s1='tn5250 env.DEVNAME=EricS1'
+alias s2='tn5250 env.DEVNAME=EricS2'
+alias s3='tn5250 env.DEVNAME=EricS3'
+
+#########################
+# Host shortcuts		#
+#########################
+alias pawn='ssh eric@fuck.getmyip.com'
+alias sylox='rdesktop -g 1024x768 sylox -u Administrator -5'
+alias home='rdesktop -g 1280x1024 home.opelousas.org -u REdOG -5'
+alias virtxp='rdesktop -g 1280x1024 virtxp -u eric -d CAJUNSPICE -5 -r sound:local'
+alias virtcp='rdesktop -g 1280x1024 virtcp -u eric -d CAJUNSPICE -5'
+alias wraith='rdesktop -g 1280x1024 wraith -u Administrator -5'
+
+alias aspartame='rdesktop -g 1280x1024 aspartame -u tonychachere\\Administrator -r disk:tmp=/tmp -0'
+
+alias spice='rdesktop -g 1280x1024 spice -u tonychachere\\Administrator -r disk:tmp=/tmp -0'
+
+alias formaldehyde='rdesktop -g 1280x1024 formaldehyde -u tonychachere\\Administrator -r disk:tmp=/tmp -0'
+
+alias v7='rdesktop -g 1280x1024 virtseven -u tonychachere\\eric -r disk:tmp=/tmp -0'
+
+alias reset='echo "X[mX(BX)0OX[?5lX7X[rX8" | tr "XO" "\033\017" && /usr/bin/reset'
+#alias date='date +"%a %b %d %r"'
+#alias date='date +"%a %b %d %r"'
+alias ssave='xset dpms force off'
+alias psmem='ps -eo pid,vsz,comm |sed -e 1d | sort -k2 -n | awk '"'"'{a=$2; if ($2>0) {print $1, $2/8/1024, "MB", $3}}'"'"
+
+alias lsdhcp='ssh root@barbeque /root/bin/lsdhcp'
+#########################
+##  END OF MY ALIASES  ##
+#########################

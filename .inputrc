@@ -1,0 +1,4 @@
+set editing-mode vi
+set horizontal-scroll-mode On
+set show-all-if-ambiguous on
+
