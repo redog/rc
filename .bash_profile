@@ -15,8 +15,6 @@ shopt -s histappend
 shopt -s histreedit
 
 #eric@tonychachere.com
-export AWS_ACCESS_KEY=AKIAJKTJGNE7DK4KQXIQ
-export AWS_SECRET_KEY=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
 export EC2_HOME="/usr"
 export EC2_CERT="/home/eric/.certs/ec2-tonychachere-cert.pem"
 export EC2_PRIVATE_KEY="/home/eric/.certs/ec2-tonychachere-pk.pem"
