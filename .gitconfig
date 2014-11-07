@@ -1,0 +1,9 @@
+[user]
+	name = “Eric
+	email = eric@opelousas.org
+[user "github.login"]
+	name = redog
+[push]
+	default = simple
+[credential]
+	helper = cache --timeout=300
