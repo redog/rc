@@ -16,8 +16,8 @@ shopt -s histreedit
 
 #eric@tonychachere.com
 export EC2_HOME="/usr"
-export EC2_CERT="/home/eric/.certs/ec2-tonychachere-cert.pem"
-export EC2_PRIVATE_KEY="/home/eric/.certs/ec2-tonychachere-pk.pem"
+export EC2_CERT="~/.certs/ec2-tonychachere-cert.pem"
+export EC2_PRIVATE_KEY="~/.certs/ec2-tonychachere-pk.pem"
 
 EBEEP_IGNORE="IHATEBEEPS"
 BROWSER="chromium"
@@ -29,7 +29,7 @@ PTS=`tty | sed 's/\/dev\///'`
 
 MYHOST=`last -i | grep ${WHO} | grep "\ ${PTS}\ " | grep logged | awk '{ print $3 }'`
 DTMP=0
-#if [[ ${MYHOST} == ":0.0" ]] || [[ ${MYHOST} == ":0.1" ]]; 
+#if [[ ${MYHOST} == ":0.0" ]] || [[ ${MYHOST} == ":0.1" ]];
 #	then
 #		DISPLAY=${MYHOST}
 #	else
@@ -99,6 +99,17 @@ export PATH=/usr/lib/ccache/bin:\
 /usr/local/sfw/bin:${PATH}
 
 export GOPATH="${HOME}/go"
+
+##########
+# COLORS #
+##########
+#Color ls setup.
+eval `dircolors -b`
+#eval `dircolors -b $HOME/.dir_colors 2>/dev/null`
+
+#################
+# END OF COLORS #
+#################
 
 ##################
 ##  MY ALIASES  ##
