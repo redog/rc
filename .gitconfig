@@ -1,9 +1,11 @@
 [user]
 	name = Eric Ortego
 	email = eric@opelousas.org
-[credential]
-	helper = cache
+[user "github.login"]
+	name = redog
 [push]
 	default = simple
+[credential]
+	helper = cache --timeout=300
 [color]
 	ui = true
