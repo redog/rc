@@ -1,0 +1,9 @@
+[user]
+	name = Eric Ortego
+	email = eric@opelousas.org
+[credential]
+	helper = cache
+[push]
+	default = simple
+[color]
+	ui = true

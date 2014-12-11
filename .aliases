@@ -1,0 +1,20 @@
+
+alias tart='xfreerdp /size:1280x1024 /u:eric /sec:nla /v:tart.tonychachere.com'
+alias cgrep='grep -v ^# | grep -v ^; | sed -e "/^$/d"'
+alias eix='eix -F'
+alias less='less -R'
+
+alias zls='zfs list'
+
+alias g='gluster'
+
+
+alias gls='gluster volume list'
+
+
+alias glps='gluster peer status'
+
+
+alias bricks="gluster v info | grep Brick |grep -v Bricks | awk '{print $2}' | sort"
+
+alias psmem='ps -eo pid,vsz,comm |sed -e 1d | sort -k2 -n | awk '"'"'{a=$2; if ($2>0) {print $1, $2/8/1024, "MB", $3}}'"'"
