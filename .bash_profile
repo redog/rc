@@ -20,27 +20,17 @@ export EC2_CERT="~/.certs/ec2-tonychachere-cert.pem"
 export EC2_PRIVATE_KEY="~/.certs/ec2-tonychachere-pk.pem"
 
 EBEEP_IGNORE="IHATEBEEPS"
-BROWSER="chromium"
+BROWSER='google-chrome-stable'
 EDITOR="vim"
 OS=`/bin/uname`
 SHELL='/bin/bash'
 WHO=`/usr/bin/whoami`
 PTS=`tty | sed 's/\/dev\///'`
 
-MYHOST=`last -i | grep ${WHO} | grep "\ ${PTS}\ " | grep logged | awk '{ print $3 }'`
-DTMP=0
-#if [[ ${MYHOST} == ":0.0" ]] || [[ ${MYHOST} == ":0.1" ]];
-#	then
-#		DISPLAY=${MYHOST}
-#	else
-#		DISPLAY="${MYHOST}:0.0"
-#fi
-
 # do not add ls, bg, fg, exit to history
 HISTIGNORE="&:ls:[bf]g:exit"
 HISTSIZE=10000
 HISTCONTROL=erasedups
-OPENWINHOME="/usr/openwin"
 HOSTNAME=$(/bin/hostname)        # don't want to keep checking for hostname
 PAGER="/usr/bin/less -qsRCM"
 WHERE=`tty | sed -n -e  "s#/dev/##p"`
@@ -53,28 +43,18 @@ CONFIG_PROTECT_MASK='/etc/init.d'
 MUTT=$HOME/.mutt
 IGNOREEOF="2"
 
-export OPENWINHOME HISTSIZE WHO SHELL OS EDITOR PAGER WHERE LESSOPEN HOSTNAME PYTHONSTARTUP PYTHONPATH EBEEP_IGNORE CONFIG_PROTECT_MASK HISTIGNORE HISTCONTROL TERM MUTT IGNOREEOF
+export HISTSIZE WHO SHELL OS EDITOR PAGER WHERE LESSOPEN HOSTNAME PYTHONSTARTUP PYTHONPATH EBEEP_IGNORE CONFIG_PROTECT_MASK HISTIGNORE HISTCONTROL TERM MUTT IGNOREEOF
 #export DISPLAY
 
 export MANPATH=${MANPATH}:\
 /usr/man:\
 /opt/man:\
-${OPENWINHOME}/man:\
-/usr/local/man:\
-/usr/X11R6/man:\
-/usr/lib/qt-3.0.3/doc/man:\
-/usr/share/texmf/man
 
 export LD_LIBRARY_PATH=/usr/lib:\
-/usr/share/lib:\
 ${HOME}/lib:\
-/etc/lib:\
 /opt/lib:\
-/usr/ccs/lib:\
 /usr/local/lib:\
-/usr/openwin/lib:\
-/usr/dt/lib:/shlib:\
-/usr/ucblib
+/usr/share/lib
 
 export PATH=/usr/lib/ccache/bin:\
 /usr/lib/distcc/bin:\
@@ -86,17 +66,7 @@ export PATH=/usr/lib/ccache/bin:\
 /usr/sbin:\
 /usr/local/bin:\
 /usr/local/sbin:\
-/usr/games/bin:\
-/usr/X11R6/bin:\
-/usr/kde/3.2/bin:\
-/opt/gnome/bin:\
-/opt/kde/bin:\
-/usr/dt/bin:\
-/usr/openwin/bin:\
-/usr/lib/qt-3.0.3/bin:\
-/usr/share/texmf/bin:\
-/usr/lib/eclipse-3.1:\
-/usr/local/sfw/bin:${PATH}
+/usr/games/bin:${PATH}
 
 export GOPATH="${HOME}/go"
 
@@ -121,6 +91,18 @@ fi
 #########################
 ##  END OF MY ALIASES  ##
 #########################
+# Color man pages
+man() {
+    env \
+        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+        LESS_TERMCAP_md=$(printf "\e[1;31m") \
+        LESS_TERMCAP_me=$(printf "\e[0m") \
+        LESS_TERMCAP_se=$(printf "\e[0m") \
+        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+        LESS_TERMCAP_ue=$(printf "\e[0m") \
+        LESS_TERMCAP_us=$(printf "\e[1;32m") \
+            man "$@"
+}
 
 #####################################
 ## Why did gentoo fuck up inputrc? ##
@@ -185,7 +167,7 @@ case ${TERM} in
  fi
  ;;
  rxvt-unicode-256color)
-	TERM=xterm
+	TERM=xterm-256color
 	PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"';
 	;;
 esac
@@ -210,28 +192,6 @@ function vd() {
 function rmpyc() {
 	rm *.pyc;
 	}
-
-function dropegg() {
-	C=`pwd`
-	cd /home/eric/src/trac-plugins/asset-plugin 
-
-	EV=`grep "VERSION=" setup.py  | sed -e s:VERSION=\':: -e s:\'::`
-	PV=`python -c 'import sys; print sys.version[0:3]'`
-	if [[ ${PV} == '' ]];
-	then
-		PV='2.4'
-	fi
-pwd
-	sudo python setup.py bdist_egg
-	if [[ $? == 0 ]];
-	then
-		echo "Copying Egg to drop";
-		sudo cp dist/AsseTrac-${EV}-py${PV}.egg /home/eric/eggdrop/;
-	else
-		echo "failed"
-	fi
-	cd ${C}
-}
 
 function color_index() {
   # Show an index of all available bash colors
@@ -262,7 +222,7 @@ function color_index() {
 }
 
 ################
-#	tor/proxy  #
+# tor/proxy    #
 # Yes fuck you #
 #
 #ttp_proxy=http://127.0.0.1:8118/

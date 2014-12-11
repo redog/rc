@@ -1,7 +1,54 @@
-set runtimepath=/usr/share/vim/vimfiles/,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after
-au FileType json source ~/.vim/colors/json.vim
+" Vundle Settings Required
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim,/usr/share/vim/vimfiles/,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after
+call vundle#begin()
+" Plugin list being
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+Plugin 'altercation/vim-colors-solarized'
+" Plugin list end
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+
+filetype plugin indent on    " required
+" End Vundle Settings
+
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" Put Non Plugin stuff after this line
+
+" TODO move other settings into bundles
+
+"
+"au FileType json source ~/.vim/colors/json.vim
+
+"let g:solarized_termcolors= 16 | 256 
+"let g:solarized_termtrans = 0 | 1
+"let g:solarized_degrade = 0 | 1 
+"let g:solarized_bold = 1 | 0 
+"let g:solarized_underline = 1 | 0 
+"let g:solarized_italic = 1 | 0 
+"let g:solarized_contrast = "normal"| "high" or "low" 
+"let g:solarized_visibility= "normal"| "high" or "low"
+"
+let g:solarized_termtrans = 0
+let g:solarized_degrade = 0
+let g:solarized_contrast = "high"
+let g:solarized_visibility= "high"
+let g:solarized_termcolors= 256 
+
+colorscheme solarized
 set bg=dark
+"colorscheme vividchalk
+"colorscheme ego-dev
+"
 syntax on
+
 set ai						" always set autoindenting on
 set backup					" keep a backup file
 set bdir=~/tmp				" where to keep backup
@@ -26,6 +73,7 @@ set ruler
 set wrapscan
 set fileformat=unix
 " set notextmode
+"
 " useful settings for python 
 let g:py_select_leading_comments = 0
 set tabstop=4
@@ -36,8 +84,6 @@ set noexpandtab
 " set expandtab
 set smarttab
 set nolist
-" list is sometimes nice to see tabs and endlines
-"set list
 set smartindent
 " Hilight trailing spaces.
 au BufNewFile,BufRead * syn match EolSpace display excludenl "\s\+$"
@@ -48,8 +94,6 @@ set title
 "set cindent
 set cinkeys=0{,0},:,0#,!^F,o,O,e
 set autowrite
-"set foldmethod=indent
-"set foldmethod=syntax
 set foldmethod=marker
 
 " Makes up and down on broken long lines sane
@@ -71,19 +115,6 @@ map <F11> <Esc>:setlocal nospell<CR>
 " " Wipe last search ; I got tired of doing /alskdjfalskdfjlakdf<CR>
 noremap <C-l> :nohl<CR><C-l>
 
-autocmd BufRead,BufNewFile /var/tmp/mutt-* source ~/.vim/vimfiles/macros/mutt.vim
-
-"map  \1\2<CR>:e! %<CR>
-"map \1 :w!<CR>
-"map \2 :!newsbody -qs -n % -p aspell check \%f<CR>
-"map \M 
-"source ~/.gvimrc
-"so $HOME/.vim/myfiletypes.vim
-"so ~/.vim/file_select
-"so ~/.vim/macros
-"so ~/.vim/syntax/syntax.vim
-"so /usr/local/share/vim/syntax/syntax.vim
-"
 " what does this add? seems to do the same as :set list so ~/.vim/cream-showinvisibles.vim highlight Search cterm=bold term=standout ctermfg=7 ctermbg=1 
 " au FileType python source /usr/share/vim/vimfiles/plugin/python.vim 
 " au FileType python source ~/.vim/vimfiles/macros/python.vim 
@@ -93,11 +124,7 @@ autocmd BufRead,BufNewFile /var/tmp/mutt-* source ~/.vim/vimfiles/macros/mutt.vi
 " colorscheme ego 
 " colorscheme delek 
 " colorscheme ego-dev 
-" filetype plugin on 
-" filetype indent on 
 " colorscheme torte 
-
-filetype plugin indent on
 
 " For editing binary shit 
 " change .bin to needed extention
