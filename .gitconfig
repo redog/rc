@@ -9,3 +9,5 @@
 	helper = cache --timeout=300
 [color]
 	ui = true
+[status]
+	showuntrackedfiles = no
