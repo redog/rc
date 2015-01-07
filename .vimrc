@@ -1,11 +1,11 @@
 " Vundle Settings Required
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim,/usr/share/vim/vimfiles/,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after
+set rtp+=~/.vim/bundle/vundle,/usr/share/vim/vimfiles/,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after
 call vundle#begin()
 " Plugin list being
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plugin 'gmarik/vundle'
 Plugin 'altercation/vim-colors-solarized'
 " Plugin list end
 " All of your Plugins must be added before the following line
