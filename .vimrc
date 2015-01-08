@@ -1,7 +1,7 @@
 " Vundle Settings Required
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle,/usr/share/vim/vimfiles/,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after
+set rtp+=~/.vim/bundle/Vundle.vim,/usr/share/vim/vimfiles/,/usr/share/vim/vim74,~/.vim/after
 call vundle#begin()
 " Plugin list being
 " let Vundle manage Vundle, required
@@ -48,7 +48,7 @@ let g:solarized_contrast = "high"
 let g:solarized_visibility= "high"
 let g:solarized_termcolors= 256 
 
-colorscheme solarized
+"colorscheme solarized
 set bg=dark
 "colorscheme vividchalk
 "colorscheme ego-dev
