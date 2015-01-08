@@ -6,7 +6,13 @@ call vundle#begin()
 " Plugin list being
 " let Vundle manage Vundle, required
 Plugin 'gmarik/vundle'
+Plugin 'gmarik/hlmatch.vim'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'scrooloose/nerdtree.git'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'bling/vim-airline'
+Plugin 'saltstack/salt-vim'
+
 " Plugin list end
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
