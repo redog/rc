@@ -80,6 +80,7 @@ set wrapscan
 set fileformat=unix
 " set notextmode
 "
+set hlsearch
 " useful settings for python 
 let g:py_select_leading_comments = 0
 set tabstop=4

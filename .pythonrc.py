@@ -4,13 +4,19 @@ import os
 import atexit
 
 sys.path.append("/home/eric/bin")
-from color import red, green, blue
-print(red('Importing custom python profile'))
+try:
+	from color import red, green, blue
+	print(red('Importing custom python profile'))
+except:
+	print('Importing custom python profile')
+
 
 historyPath = os.path.expanduser("~/.pyhistory")
 
 try:
 	import readline
+	import rlcompleter
+	readline.parse_and_bind("tab: complete")
 except ImportError:
 	print("Module readline not available.")
 else:
