@@ -12,6 +12,7 @@ shopt -s mailwarn
 shopt -s checkwinsize
 shopt -s cmdhist
 shopt -s histappend
+shopt -s lithist
 shopt -s histreedit
 
 #eric@tonychachere.com
@@ -28,8 +29,9 @@ WHO=`/usr/bin/whoami`
 PTS=`tty | sed 's/\/dev\///'`
 
 # do not add ls, bg, fg, exit to history
-HISTIGNORE="&:ls:[bf]g:exit"
-HISTSIZE=10000
+HISTIGNORE="&:exit:?:??"
+HISTSIZE=-1
+HISTFILESIZE=-1
 HISTCONTROL=erasedups
 HOSTNAME=$(/bin/hostname)        # don't want to keep checking for hostname
 PAGER="/usr/bin/less -qsRCM"
