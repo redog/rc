@@ -2,6 +2,7 @@
 ##  MY DEFAULTS  ##
 ################### 
 #set -o ignoreeof
+xset -b
 set -o vi
 set -o notify
 set -o noclobber
