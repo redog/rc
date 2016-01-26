@@ -29,7 +29,6 @@ alias thes="ethes"
 #alias switchto='sudo switchto'
 #alias switcher='/home/eric/bin/switcher'
 alias vnc='vncviewer'
-alias less='less -q -R'
 alias wiki='rox /home/eric/Apps/Ewiki'
 alias emerge='sudo emerge'
 alias survey="history 1|awk '{a[\$2]++} END{for(i in a){printf \"%5d\t%s \n\",a[i],i}}'|sort -rn|head"
