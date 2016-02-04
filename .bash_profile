@@ -28,6 +28,7 @@ OS=`/bin/uname`
 SHELL='/bin/bash'
 WHO=`/usr/bin/whoami`
 PTS=`tty | sed 's/\/dev\///'`
+SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 # do not add ls, bg, fg, exit to history
 HISTIGNORE="&:exit:?:??"
@@ -35,19 +36,19 @@ HISTSIZE=-1
 HISTFILESIZE=-1
 HISTCONTROL=erasedups
 HOSTNAME=$(/bin/hostname)        # don't want to keep checking for hostname
-PAGER="/usr/bin/less -qsRCM"
 WHERE=`tty | sed -n -e  "s#/dev/##p"`
 #LESSOPEN="|lesspipe.sh %s"
 LESS="-isMR --shift 5"
-PYTHONSTARTUP="/${HOME}/.pythonrc.py"
+PYTHONSTARTUP="${HOME}/.pythonrc.py"
 PYTHONPATH="${PYTHONPATH}:/${HOME}/bin"
 DISTCC_DIR="/var/tmp/portage/.distcc"
 CONFIG_PROTECT_MASK='/etc/init.d'
 #DISPLAY="`w | gawk -v x=$WHERE '{ if ( $2==x ) print $3 }'`:0"
+XENVIORNMENT="${HOME}/.Xresources"
 MUTT=$HOME/.mutt
 IGNOREEOF="2"
 
-export HISTSIZE WHO SHELL OS EDITOR PAGER WHERE LESSOPEN HOSTNAME PYTHONSTARTUP PYTHONPATH EBEEP_IGNORE CONFIG_PROTECT_MASK HISTIGNORE HISTCONTROL TERM MUTT IGNOREEOF
+export HISTSIZE WHO SHELL OS EDITOR PAGER WHERE LESSOPEN HOSTNAME PYTHONSTARTUP PYTHONPATH EBEEP_IGNORE CONFIG_PROTECT_MASK HISTIGNORE HISTCONTROL TERM MUTT IGNOREEOF XENVIORNMENT SSH_AUTH_SOCK
 #export DISPLAY
 
 export MANPATH=${MANPATH}:\

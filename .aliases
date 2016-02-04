@@ -30,10 +30,9 @@ alias thes="ethes"
 #alias switcher='/home/eric/bin/switcher'
 alias vnc='vncviewer'
 alias wiki='rox /home/eric/Apps/Ewiki'
-alias emerge='sudo emerge'
+#alias emerge='sudo emerge'
 alias survey="history 1|awk '{a[\$2]++} END{for(i in a){printf \"%5d\t%s \n\",a[i],i}}'|sort -rn|head"
 #alias diff="colordiff"
-alias sudo='sudo -E'
 alias grep='grep --color=always'
 alias s1='tn5250 env.DEVNAME=EricS1'
 alias s2='tn5250 env.DEVNAME=EricS2'
@@ -70,6 +69,7 @@ alias gls='gluster volume list'
 alias glps='gluster peer status'
 alias bricks="gluster v info | grep Brick |grep -v Bricks | awk '{print $2}' | sort"
 alias lsdhcp='ssh root@barbeque /root/bin/lsdhcp'
+alias urxvt='xrdb -merge ~/.Xresources; /usr/bin/urxvt'
 
 #########################
 ##  END OF MY ALIASES  ##
