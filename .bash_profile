@@ -287,6 +287,7 @@ function color_index() {
 }
 
 function load_bws_key() {
+  export DISPLAY=:0
   pass=$(secret-tool lookup bitwarden accesstoken)
   export BWS_ACCESS_TOKEN=${pass}
 }
@@ -308,6 +309,7 @@ function unload_cgpt_key() {
   unset CGPT_ACCESS_TOKEN
 }
 function load_gh_key() {
+  export DISPLAY=:0
   key=$(secret-tool lookup github accesstoken)
   export GITHUB_ACCESS_TOKEN="$key"
 }
