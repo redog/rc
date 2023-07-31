@@ -3,9 +3,15 @@
 ##################
 alias aa='echo $@'
 
-alias ls='ls -lrt --color'
+
+alias ls='ls -lrtN --color'
 alias lsd='ls -l --color | grep "^d"'
 alias lsdo='ls -a --color=none | grep "\ \."'
+alias fkcolor="sed 's/\x1b\[[0-9;]*[a-zA-Z]//g'"
+
+
+alias egops='docker run -ti egops'
+alias bci='bitcoin-cli'
 alias ext='exit'
 alias droid='/home/eric/go/bin/go-mtpfs /home/eric/G4Active'
 alias l='ls -l'
@@ -30,9 +36,10 @@ alias thes="ethes"
 #alias switcher='/home/eric/bin/switcher'
 alias vnc='vncviewer'
 alias wiki='rox /home/eric/Apps/Ewiki'
-#alias emerge='sudo emerge'
-alias survey="history 1|awk '{a[\$2]++} END{for(i in a){printf \"%5d\t%s \n\",a[i],i}}'|sort -rn|head"
+alias emerge='sudo emerge'
+alias survey="history |awk '{a[\$2]++} END{for(i in a){printf \"%5d\t%s \n\",a[i],i}}'|sort -rn|head"
 #alias diff="colordiff"
+alias sudo='sudo -E'
 alias grep='grep --color=always'
 alias s1='tn5250 env.DEVNAME=EricS1'
 alias s2='tn5250 env.DEVNAME=EricS2'
@@ -50,7 +57,9 @@ alias wraith='rdesktop -g 1280x1024 wraith -u Administrator -5'
 
 alias aspartame='rdesktop -g 1280x1024 aspartame -u tonychachere\\Administrator -r disk:tmp=/tmp -0'
 
-alias spice='rdesktop -g 1280x1024 spice -u tonychachere\\Administrator -r disk:tmp=/tmp -0'
+#alias spice='rdesktop -g 1280x1024 spice -u tonychachere\\Administrator -r disk:tmp=/tmp -0'
+alias spice='xfreerdp /u:eric /v:spice /size:1920x1200'
+
 
 alias formaldehyde='rdesktop -g 1280x1024 formaldehyde -u tonychachere\\Administrator -r disk:tmp=/tmp -0'
 
@@ -69,8 +78,15 @@ alias gls='gluster volume list'
 alias glps='gluster peer status'
 alias bricks="gluster v info | grep Brick |grep -v Bricks | awk '{print $2}' | sort"
 alias lsdhcp='ssh root@barbeque /root/bin/lsdhcp'
-alias urxvt='xrdb -merge ~/.Xresources; /usr/bin/urxvt'
 
+alias lsata='ls -l /sys/block/sd* | sed -e "s^.*-> \.\.^/sys^" -e "s^/host^ ^" -e "s^/target.*/^ ^" | while read Path HostNum ID ; do echo ${ID}: `cat $Path/host$HostNum/scsi_host/host$HostNum/unique_id`; done'
+
+alias rj='xargs printf "%$((${COLUMNS}-4))s\n"'
+#alias pixel='export QEMU_AUDIO_DRV=none && /opt/android-sdk-update-manager/emulator/emulator @Pixel_2_API_29 -sdcard /home/eric/.android/avd/Pixel_2_API_29.avd/sdcard.img -gpu on -no-boot-anim -accel on -selinux disabled -timezone America/Chicago -netfast -verbose -show-kernel -logcat *:e -use-system-libs'
+alias pixel='export QEMU_AUDIO_DRV=none && /opt/android-sdk-update-manager/emulator/emulator @Pixel_2_API_29 -sdcard /home/eric/.android/avd/Pixel_2_API_29.avd/sdcard.img -gpu on -no-boot-anim -accel on -selinux disabled -timezone America/Chicago -netfast'
+alias nexus='export QEMU_AUDIO_DRV=none && /opt/android-sdk-update-manager/emulator/emulator @Nexus_5X_API_28 -sdcard /home/eric/.android/avd/Nexus_5X_API_28.avd/sdcard.img -gpu on -no-boot-anim -accel on -selinux disabled -timezone America/Chicago -netfast'
+#alias powershell='docker run -ti egops'
+alias vim='nvim'
 #########################
 ##  END OF MY ALIASES  ##
 #########################

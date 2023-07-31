@@ -1,6 +1,6 @@
 [user]
-	name = Eric Ortego
-	email = eric@opelousas.org
+	name = Dirty REdOG 
+	email = redog@users.noreply.github.com
 [user "github.login"]
 	name = redog
 [push]
@@ -11,3 +11,5 @@
 	ui = true
 [status]
 	showuntrackedfiles = no
+[http]
+	sslverify = false

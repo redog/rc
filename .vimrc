@@ -1,4 +1,5 @@
 " Vundle Settings Required
+"
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle,/usr/share/vim/vimfiles/,/usr/share/vim/vim74,~/.vim/after
@@ -9,9 +10,10 @@ Plugin 'gmarik/vundle'
 Plugin 'gmarik/hlmatch.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree.git'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'bling/vim-airline'
 Plugin 'saltstack/salt-vim'
+"Plugin 'ggandor/leap'
 
 " Plugin list end
 " All of your Plugins must be added before the following line
@@ -32,6 +34,12 @@ filetype plugin indent on    " required
 
 "
 "au FileType json source ~/.vim/colors/json.vim
+if has ("autocmd")
+    augroup templates
+       autocmd BufNewFile *.sh 0r ~/.vim/templates/skel.sh
+       autocmd BufNewFile *.ps1 0r ~/.vim/templates/skel.ps1
+    augroup END
+endif
 
 "let g:solarized_termcolors= 16 | 256 
 "let g:solarized_termtrans = 0 | 1
@@ -73,6 +81,7 @@ set spelllang=en
 "set spell
 " popup suggestions
 set mousemodel=popup
+set mouse=a
 " set redraw 
 set noterse 
 set ruler
@@ -103,16 +112,20 @@ set cinkeys=0{,0},:,0#,!^F,o,O,e
 set autowrite
 set foldmethod=marker
 
+" leap
+"require('leap').set_default_keymaps()
+
+
 " Makes up and down on broken long lines sane
 nmap j gj
 nmap k gk
 
 "map  :%s/^/> /g
 "map  :w!<CR>:!aspell check %<CR>:e! %<CR>
-map  \s?
-map  :r! echo '\#\!/usr/bin/env python'
-map  :r! echo '\#\!/usr/bin/bash'
-map <F5> :w<CR>:!Eterm -t /home/eric/.Eterm/themes/python % &<CR><CR>
+"map  \s?
+"map  :r! echo '\#\!/usr/bin/env python'
+"map  :r! echo '\#\!/usr/bin/bash'
+"map <F5> :w<CR>:!Eterm -t /home/eric/.Eterm/themes/python % &<CR><CR>
 " Enable spell checking
 map <F10> <Esc>:setlocal spell spelllang=en_us<CR>
 " Disable spell checking

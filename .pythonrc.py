@@ -8,7 +8,7 @@ try:
 	from color import red, green, blue
 	print(red('Importing custom python profile'))
 except:
-	print('Importing custom python profile')
+	print('Error: Importing custom python profile')
 
 
 historyPath = os.path.expanduser("~/.pyhistory")
