@@ -1,0 +1,1 @@
+XSESSION="enlightenment"
