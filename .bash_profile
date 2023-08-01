@@ -302,12 +302,6 @@ function load_notion_key() {
 function unload_notion_key() {
   unset NOTION_API_TOKEN
 }
-function load_cgpt_key() {
-  export CGPT_ACCESS_TOKEN
-}
-function unload_cgpt_key() {
-  unset CGPT_ACCESS_TOKEN
-}
 function load_gh_key() {
   export DISPLAY=:0
   key=$(secret-tool lookup github accesstoken)
@@ -317,7 +311,15 @@ function load_gh_key() {
 function unload_gh_key() {
   unset GITHUB_ACCESS_TOKEN
 }
+function load_cgpt_key() {
+  export DISPLAY=:0
+  key=$(secret-tool lookup chatgpt accesstoken)
+  export CGPT_ACCESS_TOKEN
+}
 
+function unload_cgpt_key() {
+  unset CGPT_ACCESS_TOKEN
+}
 function key_init() {
   load_bws_key
   load_notion_key
