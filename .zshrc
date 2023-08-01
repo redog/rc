@@ -11,7 +11,7 @@ unload_bws() {
 }
 
 load_notion_key() {
-  key=$($HOME/bin/bws get secret 7909c25f-f3d3-44ea-8b86-aff8010d5ce9 -o tsv | tail -n 1 | awk '{print $3}')
+  key=$($HOME/bin/bws secret get 7909c25f-f3d3-44ea-8b86-aff8010d5ce9 -o tsv | tail -n 1 | awk '{print $3}')
   export NOTION_API_TOKEN="$key"
 }
 
