@@ -36,6 +36,14 @@ unload_gh_key() {
   unset GITHUB_ACCESS_TOKEN
 }
 
+load cf_key() {
+  pass=$($HOME/bin/bws secret get c912c706-c8a3-4928-afa3-b064003857f6 -o tsv | tail -n 1 | awk '{print $3}' )
+  export CF_ACCESS_TOKEN="$pass"
+}
+unload_cf_key() {
+  unset CF_ACCESS_TOKEN
+}
+
 alias lb='load_bws'
 alias ub='unload_bws'
 alias nk='load_notion_key'
@@ -44,6 +52,8 @@ alias lc='load_cgpt_key'
 alias uc='unload_cgpt_key'
 alias lg='load_gh_key'
 alias ug='unload_gh_key'
+alias lcf='load_cf_key'
+alias ucf='unload_cf_key'
 alias vim='nvim'
 alias grep='rg'
 alias python='python3'
@@ -53,6 +63,7 @@ key_init() {
 	nk
 	lc
   lg
+  lcf
 }
 
 export CPGPT_ORGID=”org-mXtmTz67aAt9GTfmXaQZ72Dp”
