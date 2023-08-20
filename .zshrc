@@ -44,6 +44,15 @@ unload_cf_key() {
   unset CF_ACCESS_TOKEN
 }
 
+load_fn_key() {
+  pass=$($HOME/bin/bws secret get d16db1df-6bcf-4f90-a341-b0640187c855  -o tsv | tail -n 1 | awk '{print $3}')
+  export FN_ENC_KEY="$pass"
+}
+
+unload_fn_key() {
+  unset FN_ENC_KEY
+}
+
 alias lb='load_bws'
 alias ub='unload_bws'
 alias nk='load_notion_key'
@@ -54,6 +63,8 @@ alias lg='load_gh_key'
 alias ug='unload_gh_key'
 alias lcf='load_cf_key'
 alias ucf='unload_cf_key'
+alias lfnk='load_fn_key'
+alias ufnk='unload_fn_key'
 alias vim='nvim'
 alias grep='rg'
 alias python='python3'
@@ -64,6 +75,7 @@ key_init() {
 	lc
   lg
   lcf
+  lfnk
 }
 
 export CPGPT_ORGID=”org-mXtmTz67aAt9GTfmXaQZ72Dp”
