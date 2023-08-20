@@ -36,7 +36,7 @@ unload_gh_key() {
   unset GITHUB_ACCESS_TOKEN
 }
 
-load cf_key() {
+load_cf_key() {
   pass=$($HOME/bin/bws secret get c912c706-c8a3-4928-afa3-b064003857f6 -o tsv | tail -n 1 | awk '{print $3}' )
   export CF_ACCESS_TOKEN="$pass"
 }
