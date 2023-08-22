@@ -1,5 +1,24 @@
-setopt HIST_IGNORE_SPACE
-set -o vi
+#keep at top
+#set -o vi
+#keep at top
+
+PROMPT='%F{green}%D{%I:%M %p}
+%F{red}(%(4~|.../%3~|%~))%F{green}[%m]
+%F{bold}%F{white}} %n {
+%F{cyan}$ '
+
+
+#PROMPT='%F{green}%D{%I:%M %p}
+#%F{red}%5<<%~%<<%F{green}[%m]
+#%F{bold}%F{white}} %n {
+#%F{cyan}$ '
+
+
+# custom key binds
+bindkey '^R' history-incremental-search-backward
+bindkey '^N' history-incremental-search-forward
+bindkey '^k' clear-screen
+
 
 load_bws() {
 	pass=$(security find-generic-password -s 'bitwarden' -w)
@@ -81,3 +100,4 @@ key_init() {
 export CPGPT_ORGID=”org-mXtmTz67aAt9GTfmXaQZ72Dp”
 
 export PYTHONPATH="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/"
+export PROMPT
