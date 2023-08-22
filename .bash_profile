@@ -144,10 +144,10 @@ NEWROOT=""
 # powerpc-unknown-linux-gnu
 # i686-pc-linux-gnu etc etc
 MACHTYPE="${MACHTYPE?:MACHTYPE NOT SET}"
-
 #####################
 # My Kickass Prompt #
 #####################
+PROMPT_DIRTRIM=2
 # Am I root? Set prompt accordingly.
 #       # If me define prompt
 #		# If I'm root make my prompt red:
@@ -155,15 +155,16 @@ MACHTYPE="${MACHTYPE?:MACHTYPE NOT SET}"
 if [[ ${WHO} != 'root' ]]
 then
 	          PS1='\[[32m\]\D{%r}
-\[[01;31m\]($PWD)\[[00;32m\][$HOSTNAME]
+\[[01;31m\](\w)\[[00;32m\][$HOSTNAME]
 \[[01m[39m\]} \u {
 \[[00m[36m\]$' 
 	   	elif [[ ${WHO} == 'root' ]]
 		then 
 			export PS1='\[[01m[31m\]$SHLVL:} $WHO\[[00m[39m\]@\[[32m\]$HOSTNAME
-\[[01m[39m\]$PWD
+\[[01m[39m\]\w
 \[[31m\]#\[[00m[36m\]'
 		fi
+export PROMPT_DIRTRIM
 ################
 #  End Prompt  #
 ################
