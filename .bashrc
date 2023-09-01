@@ -7,6 +7,6 @@ shopt -s cdspell
 #set -o ignoreeof
 
 
-export PATH=$PATH:/home/eric/bin
+export PATH=$PATH:$HOME/bin
 
-source '/home/eric/lib/azure-cli/az.completion'
+source "${HOME}/lib/azure-cli/az.completion"
