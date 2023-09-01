@@ -1,5 +1,5 @@
 #keep at top
-#set -o vi
+set -o vi
 #keep at top
 
 PROMPT='%F{green}%D{%I:%M %p}
@@ -7,11 +7,44 @@ PROMPT='%F{green}%D{%I:%M %p}
 %F{bold}%F{white}} %n {
 %F{cyan}$ '
 
+#set history size
+export HISTSIZE=10000
+#save history after logout
+export SAVEHIST=10000
+#history file
+export HISTFILE=~/.zhistory
+#append into history file
+setopt INC_APPEND_HISTORY
+#save only one command if 2 common are same and consistent
+setopt HIST_IGNORE_DUPS
+#add timestamp for each entry
+setopt EXTENDED_HISTORY
 
-#PROMPT='%F{green}%D{%I:%M %p}
-#%F{red}%5<<%~%<<%F{green}[%m]
-#%F{bold}%F{white}} %n {
-#%F{cyan}$ '
+#If the CDPATH is set, the "cd" command starts finding the directory in the list of directories present in the CDPATH variable and then makes the directory switch appropriately.
+
+# this mark function isn't working in zsh
+#export CDPATH=".:~/.marks/:/Users/eric/src"
+## .marks is for mark function
+##function mark { ln -sr "$(pwd)" ~/.marks/"$1"; }
+#function mark {
+#  target_path="$(pwd)"
+#  mark_path="${HOME}/.marks/$1"
+#
+#  # Create the .marks directory if it doesn't exist
+#  mkdir -p "${HOME}/.marks"
+#
+#  # Create a relative symlink
+#  if [[ "$OSTYPE" == "darwin"* ]]; then
+#    # macOS
+#    rel_target="$(python -c "import os.path; print(os.path.relpath('${tar#get_path}', os.path.dirname('${mark_path}')))")"
+#  else
+#    # Linux
+#    rel_target="$(realpath --relative-to="$(dirname "$mark_path")" "$targ#et_path")"
+#  fi
+#
+#  ln -s "$rel_target" "$mark_path"
+#}
+
 
 
 # custom key binds
@@ -72,6 +105,14 @@ unload_fn_key() {
   unset FN_ENC_KEY
 }
 
+
+cdtmp() {
+  cd $(mktemp -d)
+}
+
+alias s='cd ..'
+
+# move to aliases file and merege with linux/bash aliases
 alias lb='load_bws'
 alias ub='unload_bws'
 alias nk='load_notion_key'

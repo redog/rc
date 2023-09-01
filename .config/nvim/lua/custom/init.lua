@@ -1,3 +1,11 @@
+-- local autocmd = vim.api.nvim_create_autocmd
+
+-- Auto resize panes when resizing nvim window
+-- autocmd("VimResized", {
+--   pattern = "*",
+--   command = "tabdo wincmd =",
+-- })
+--
 if vim.g.vscode then
     -- VSCode extension
   vim.keymap.set("n","u","<Cmd>call VSCodeNotify('undo')<CR>")
@@ -5,5 +13,8 @@ if vim.g.vscode then
 else
     -- ordinary Neovim
   vim.api.nvim_set_keymap('v', '<LeftRelease>', '"*ygv', { noremap = true, silent = true })
-
+  -- already default? 
+  --  vim.api.nvim_set_keymap('n', '<C-r>', ':history-search-backward<CR>', { noremap = true, silent = true })
+  vim.o.mouse = "v"
+  vim.api.nvim_set_keymap('v', '<Leader>y', '"+y', { noremap = true, silent = true})
 end
