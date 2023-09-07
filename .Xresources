@@ -12,6 +12,8 @@ URxvt*font:     xft:DejaVu Sans Mono:size=9:style=normal
 ! -- URxvt*font:     xft:HackNerdFont-Regular:size=8:style=normal -- !
 
 URxvt.background:       #000000
+URxvt.color4: #00CED1  ! Brighter blue or turquoise
+URxvt.color1: #FFA500  ! Orange
 URxvt.foreground:       gray90
 URxvt.color7:           gray90
 URxvt.colorBD:          #ffffff
