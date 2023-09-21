@@ -79,7 +79,7 @@ update_rc_files() {
 
   # Loop through each file and copy it from the home directory to the repo
   for file in "${rc_files[@]}"; do
-    cp -v "$HOME/$file" "$HOME/.dotfiles/$file"
+    cp -v "$HOME/$file" "$HOME/.dotfiles/$file" 2>/dev/null
   done
 
   # Add all the files to the git repository
@@ -87,9 +87,19 @@ update_rc_files() {
 
   # Commit the changes
   git commit -m "Update rc files" || echo "⚠️  Commit failed. Please resolve manually."
-  # Push the changes
-  git push origin master || echo "⚠️  Push failed. Please resolve manually."
 
+  # List affected files and ask for confirmation:
+  echo "Affected files:"
+  git diff --name-only HEAD~1
+  read -rp "Are you sure you want to push these changes? [y/N] " -n 1 confirm
+
+  # Push the changes if yes
+  if [[ $confirm =~ ^[Yy]$ || $confirm == [yY][eE][sS] ]]; then
+    git push origin master || echo "⚠️  Push failed. Please resolve manually."
+  else
+    echo "Aborting. push canceled"
+    return
+  fi
 }
 
 # key functions

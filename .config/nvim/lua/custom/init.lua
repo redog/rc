@@ -19,4 +19,6 @@ else
   vim.api.nvim_set_keymap('v', '<Leader>y', '"+y', { noremap = true, silent = true})
   vim.g.copilot_no_tab_map = true
   vim.g.copilot_assume_mapped = true
+  -- OMG QUIT AUOTO COMMENTING
+  vim.cmd([[autocmd FileType * set formatoptions-=ro]])
 end
