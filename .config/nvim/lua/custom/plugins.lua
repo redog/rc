@@ -105,11 +105,67 @@ local plugins = {
       vim.g.sql_clib_path = "<path_to_libsqlite3.so>"
     end
    },
-   {
-    "github/copilot.vim",
-    lazy = false
-   },
-
+  -- codeium is pretty neat!
+--  {
+--    "Exafunction/codeium.vim",
+--    lazy = false
+--  },
+--   {
+--    "github/copilot.vim",
+--    lazy = false
+--  },
+{
+  "zbirenbaum/copilot.lua",
+  lazy = false,
+  cmd = "Copilot",
+--  event = "InsertEnter",
+  build = ":Copilot auth",
+  opts = {
+    suggestion = {
+      enabled = true,
+      auto_trigger = true,
+      keymap = {
+        accept = "<C-l>",
+        prev = "<C-j>",
+        next = "<M-k>",
+        dismiss = "<C-h>",
+      },
+    },
+    panel = {
+      enabled = false,
+          auto_refresh = false,
+      keymap = {
+        accept = "<CR>",
+        jump_prev = "[[",
+        jump_next = "]]",
+        refresh = "gr",
+        open = "<M-CR>",
+      },
+    },
+    filetypes = {
+      markdown = true,
+      help = false,
+      gitcommit = false,
+    },
+  },
+},
+{
+    "zbirenbaum/copilot-cmp",
+    dependencies = "copilot.lua",
+ --   event = { "InsertEnter", "LspAttach" },
+    fix_pairs = true,
+    config = function(_, opts)
+      local copilot_cmp = require("copilot_cmp")
+      copilot_cmp.setup(opts)
+    end,
+  },
+--{
+--  "zbirenbaum/copilot-cmp",
+--  lazy = false,
+--  config = function ()
+--  require("copilot_cmp").setup()
+--  end
+--},
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",

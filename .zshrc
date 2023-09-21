@@ -20,9 +20,16 @@ setopt HIST_IGNORE_DUPS
 #add timestamp for each entry
 setopt EXTENDED_HISTORY
 
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_FIND_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
+
+
 #If the CDPATH is set, the "cd" command starts finding the directory in the list of directories present in the CDPATH variable and then makes the directory switch appropriately.
 
-# this mark function isn't working in zsh
+# this mark function isn't working in zsh im not sure why yet...todo: fixme(chatgpt help)
 #export CDPATH=".:~/.marks/:/Users/eric/src"
 ## .marks is for mark function
 ##function mark { ln -sr "$(pwd)" ~/.marks/"$1"; }
@@ -50,12 +57,47 @@ setopt EXTENDED_HISTORY
 # custom key binds
 bindkey '^R' history-incremental-search-backward
 bindkey '^N' history-incremental-search-forward
+# because I like l and k ?
 bindkey '^k' clear-screen
 
 
+# helper functinos
+
+update_rc_files() {
+  # rc git repo
+  cd ${HOME}/.dotfiles
+  # Pull the latest changes
+  git pull origin master || echo "⚠️  Pull failed. Please resolve manually."
+
+  # If the custom rc file list exists, read it into the array
+  if [[ -f "$HOME/my.git.rc" ]]; then
+    mapfile -t rc_files < "$HOME/my.git.rc"
+  else
+    # Only add files that already exist in the repository
+    rc_files=($(git ls-files))
+  fi
+
+  # Loop through each file and copy it from the home directory to the repo
+  for file in "${rc_files[@]}"; do
+    cp -v "$HOME/$file" "$HOME/.dotfiles/$file"
+  done
+
+  # Add all the files to the git repository
+  git add .
+
+  # Commit the changes
+  git commit -m "Update rc files" || echo "⚠️  Commit failed. Please resolve manually."
+  # Push the changes
+  git push origin master || echo "⚠️  Push failed. Please resolve manually."
+
+}
+
+# key functions
 load_bws() {
 	pass=$(security find-generic-password -s 'bitwarden' -w)
 	export BWS_ACCESS_TOKEN="$pass"
+  proj=$($HOME/bin/bws project list -o tsv | tail -n 1 | awk '{print $1}' )
+  export BWS_PROJECT_ID="$proj"
 }
 
 unload_bws() {
@@ -97,6 +139,7 @@ unload_cf_key() {
 }
 
 load_fn_key() {
+  #fernet encruption key I used once...
   pass=$($HOME/bin/bws secret get d16db1df-6bcf-4f90-a341-b0640187c855  -o tsv | tail -n 1 | awk '{print $3}')
   export FN_ENC_KEY="$pass"
 }
@@ -105,13 +148,22 @@ unload_fn_key() {
   unset FN_ENC_KEY
 }
 
+load_vault_pass() {
+  pass=$($HOME/bin/bws secret get 42e1e10a-8ea9-427c-9c9e-b070013edb70 -o tsv | tail -n 1 | awk '{print $3}')
+  export VAULT_PASSWORD="$pass"
+}
+
+unload_vault_pass() {
+  unset VAULT_PASSWORD
+}
 
 cdtmp() {
   cd $(mktemp -d)
 }
 
-alias s='cd ..'
 
+alias s='cd ..'
+alias urc='update_rc_files'
 # move to aliases file and merege with linux/bash aliases
 alias lb='load_bws'
 alias ub='unload_bws'
@@ -125,6 +177,8 @@ alias lcf='load_cf_key'
 alias ucf='unload_cf_key'
 alias lfnk='load_fn_key'
 alias ufnk='unload_fn_key'
+alias lvp='load_vault_pass'
+alias uvp='unload_vault_pass'
 alias vim='nvim'
 alias grep='rg'
 alias python='python3'
@@ -136,6 +190,7 @@ key_init() {
   lg
   lcf
   lfnk
+  lvp
 }
 
 export CPGPT_ORGID=”org-mXtmTz67aAt9GTfmXaQZ72Dp”

@@ -1,15 +1,9 @@
 [user]
-	name = Dirty REdOG 
-	email = redog@users.noreply.github.com
+	name = Dirty REdOG
+	email = "redog@users.noreply.github.com "
 [user "github.login"]
 	name = redog
-[push]
-	default = simple
 [credential]
-	helper = cache --timeout=300
-[color]
-	ui = true
-[status]
-	showuntrackedfiles = no
-[http]
-	sslverify = false
+	helper = cache --timeout=1800
+[push]
+	default = current

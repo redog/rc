@@ -17,4 +17,6 @@ else
   --  vim.api.nvim_set_keymap('n', '<C-r>', ':history-search-backward<CR>', { noremap = true, silent = true })
   vim.o.mouse = "v"
   vim.api.nvim_set_keymap('v', '<Leader>y', '"+y', { noremap = true, silent = true})
+  vim.g.copilot_no_tab_map = true
+  vim.g.copilot_assume_mapped = true
 end
