@@ -90,14 +90,16 @@ update_rc_files() {
 
   # List affected files and ask for confirmation:
   echo "Affected files:"
+  echo
   git diff --name-only HEAD~1
-  read -rp "Are you sure you want to push these changes? [y/N] " -n 1 confirm
+  echo
+  read -rp "Are you sure you want to push these changes? [y/N]: " confirm
 
   # Push the changes if yes
   if [[ $confirm =~ ^[Yy]$ || $confirm == [yY][eE][sS] ]]; then
     git push origin master || echo "⚠️  Push failed. Please resolve manually."
   else
-    echo "Aborting. push canceled"
+    echo "Aborting - push canceled"
     return
   fi
 }
