@@ -73,8 +73,9 @@ update_rc_files() {
       *) echo "Invalid option: -$opt"; return 1 ;;
     esac
   done
-
-
+  # Save the current working directory
+  local lwd
+  lwd = $(pwd)
   # rc git repo
   cd ${HOME}/.dotfiles
   # Pull the latest changes
@@ -124,15 +125,17 @@ update_rc_files() {
 
   # Push the changes if yes
   if [[ $confirm =~ ^[Yy]$ || $confirm == [yY][eE][sS] ]]; then
-        if $verbose; then
+    if $verbose; then
       git push origin master
     else
       git push origin master > /dev/null 2>&1 || echo "⚠️  Push failed. Please resolve manually."
     fi
   else
     echo "Aborting - push canceled"
+    cd "$lwd"
     return
   fi
+cd "$lwd"
 }
 
 # key functions
