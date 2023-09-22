@@ -104,11 +104,15 @@ update_rc_files() {
   # Add all the files to the git repository
   git add .
 
-  # Commit the changes
-  if $verbose; then
-    git commit -m "Update rc files"
+  if git diff-index --quiet HEAD --; then
+    echo "No changes to commit."
   else
-    git commit -m "Update rc files" > /dev/null 2>&1 || echo "⚠️  Commit failed. Please resolve manually."
+  # Commit the changes
+    if $verbose; then
+      git commit -m "Update rc files"
+    else
+      git commit -m "Update rc files" > /dev/null 2>&1 || echo "⚠️  Commit failed. Please resolve manually."
+    fi
   fi
 
   # List affected files and ask for confirmation:
