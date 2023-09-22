@@ -62,6 +62,9 @@ bindkey '^k' clear-screen
 
 
 # helper functinos
+nvc() {
+  cd .config/nvim/lua/custom/
+}
 
 update_rc_files() {
   # rc git repo

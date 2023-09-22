@@ -21,4 +21,23 @@ else
   vim.g.copilot_assume_mapped = true
   -- OMG QUIT AUOTO COMMENTING
   vim.cmd([[autocmd FileType * set formatoptions-=ro]])
+  -- toggle lines for copying
+  vim.api.nvim_set_keymap('n', '<Leader>i', ':IndentBlanklineToggle<CR>', { noremap = true, silent = true })
+
+  -- toggle git bar and 
+  local signcolumn_status = true -- flag to hold the current state
+
+  -- Function to toggle the sign column
+  function toggle_signcolumn()
+    if signcolumn_status then
+      vim.wo.signcolumn = "no"
+    else
+      vim.wo.signcolumn = "yes"
+    end
+    signcolumn_status = not signcolumn_status
+  end
+  -- Mapping to toggle the sign column with leader + g
+  vim.api.nvim_set_keymap('n', '<leader>g', [[<Cmd>lua toggle_signcolumn()<CR>]], { noremap = true, silent = true })
+
+
 end
