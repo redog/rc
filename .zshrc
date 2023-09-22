@@ -53,7 +53,6 @@ setopt HIST_SAVE_NO_DUPS
 #}
 
 
-
 # custom key binds
 bindkey '^R' history-incremental-search-backward
 bindkey '^N' history-incremental-search-forward
@@ -67,10 +66,23 @@ nvc() {
 }
 
 update_rc_files() {
+  local verbose=false
+  while getopts "v" opt; do
+     case $opt in
+      v) verbose=true ;;
+      *) echo "Invalid option: -$opt"; return 1 ;;
+    esac
+  done
+
+
   # rc git repo
   cd ${HOME}/.dotfiles
   # Pull the latest changes
-  git pull origin master || echo "⚠️  Pull failed. Please resolve manually."
+  if $verbose; then
+    git pull origin master
+  else
+    git pull origin master > /dev/null 2>&1 || echo "⚠️  Pull failed. Please resolve manually."
+  fi
 
   # If the custom rc file list exists, read it into the array
   if [[ -f "$HOME/my.git.rc" ]]; then
@@ -82,14 +94,22 @@ update_rc_files() {
 
   # Loop through each file and copy it from the home directory to the repo
   for file in "${rc_files[@]}"; do
-    cp -v "$HOME/$file" "$HOME/.dotfiles/$file" 2>/dev/null
+    if $verbose; then
+      cp -v "$HOME/$file" "$HOME/.dotfiles/$file"
+    else
+      cp "$HOME/$file" "$HOME/.dotfiles/$file" 2>/dev/null
+    fi
   done
 
   # Add all the files to the git repository
   git add .
 
   # Commit the changes
-  git commit -m "Update rc files" || echo "⚠️  Commit failed. Please resolve manually."
+  if $verbose; then
+    git commit -m "Update rc files"
+  else
+    git commit -m "Update rc files" > /dev/null 2>&1 || echo "⚠️  Commit failed. Please resolve manually."
+  fi
 
   # List affected files and ask for confirmation:
   echo "Affected files:"
@@ -100,7 +120,11 @@ update_rc_files() {
 
   # Push the changes if yes
   if [[ $confirm =~ ^[Yy]$ || $confirm == [yY][eE][sS] ]]; then
-    git push origin master || echo "⚠️  Push failed. Please resolve manually."
+        if $verbose; then
+      git push origin master
+    else
+      git push origin master > /dev/null 2>&1 || echo "⚠️  Push failed. Please resolve manually."
+    fi
   else
     echo "Aborting - push canceled"
     return
