@@ -93,7 +93,7 @@ update_rc_files() {
   echo
   git diff --name-only HEAD~1
   echo
-  read -rp "Are you sure you want to push these changes? [y/N]: " confirm
+  read -r "Are you sure you want to push these changes? [y/N]: " confirm
 
   # Push the changes if yes
   if [[ $confirm =~ ^[Yy]$ || $confirm == [yY][eE][sS] ]]; then
