@@ -92,8 +92,8 @@ update_rc_files() {
   echo "Affected files:"
   echo
   git diff --name-only HEAD~1
-  echo
-  read -r "Are you sure you want to push these changes? [y/N]: " confirm
+  echo "Are you sure you want to push these changes? [y/N]: "
+  read -r  confirm
 
   # Push the changes if yes
   if [[ $confirm =~ ^[Yy]$ || $confirm == [yY][eE][sS] ]]; then
