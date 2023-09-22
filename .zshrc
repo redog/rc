@@ -75,7 +75,7 @@ update_rc_files() {
   done
   # Save the current working directory
   local lwd
-  lwd = $(pwd)
+  lwd=$(pwd)
   # rc git repo
   cd ${HOME}/.dotfiles
   # Pull the latest changes
