@@ -218,6 +218,80 @@ umask 022
 #  enable bash to provide context sensitive tab completion for gst-launch
 complete -C gst-complete gst-launch
 
+update_rc_files() {
+  local verbose=false
+  while getopts "v" opt; do
+     case $opt in
+      v) verbose=true ;;
+      *) echo "Invalid option: -$opt"; return 1 ;;
+    esac
+  done
+  # Save the current working directory
+  local lwd
+  lwd=$(pwd)
+  # rc git repo
+  cd ${HOME}/.dotfiles
+  # Pull the latest changes
+  if $verbose; then
+    git pull origin master
+  else
+    git pull origin master > /dev/null 2>&1 || echo "⚠️  Pull failed. Please resolve manually."
+  fi
+
+  # If the custom rc file list exists, read it into the array
+  if [[ -f "$HOME/my.git.rc" ]]; then
+    mapfile -t rc_files < "$HOME/my.git.rc"
+  else
+    # Only add files that already exist in the repository
+    rc_files=($(git ls-files))
+  fi
+
+  # Loop through each file and copy it from the home directory to the repo
+  for file in "${rc_files[@]}"; do
+    if $verbose; then
+      cp -v "$HOME/$file" "$HOME/.dotfiles/$file"
+    else
+      cp "$HOME/$file" "$HOME/.dotfiles/$file" 2>/dev/null
+    fi
+  done
+
+  # Add all the files to the git repository
+  git add .
+
+  if git diff-index --quiet HEAD --; then
+    echo "No changes to commit."
+  else
+  # Commit the changes
+    if $verbose; then
+      git commit -m "Update rc files"
+    else
+      git commit -m "Update rc files" > /dev/null 2>&1 || echo "⚠️  Commit failed. Please resolve manually."
+    fi
+  fi
+
+  # List affected files and ask for confirmation:
+  echo "Affected files:"
+  echo
+  git diff --name-only HEAD~1
+  echo "Are you sure you want to push these changes? [y/N]: "
+  read -r  confirm
+
+  # Push the changes if yes
+  if [[ $confirm =~ ^[Yy]$ || $confirm == [yY][eE][sS] ]]; then
+    if $verbose; then
+      git push origin master
+    else
+      git push origin master > /dev/null 2>&1 || echo "⚠️  Push failed. Please resolve manually."
+    fi
+  else
+    echo "Aborting - push canceled - erasing changes in rc"
+    git reset --hard HEAD~1
+    cd "$lwd"
+    return
+  fi
+cd "$lwd"
+}
+
 #function mv() {
 #  if [ "$#" -ne 1 ]; then
 #    command mv "$@"
