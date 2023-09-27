@@ -131,8 +131,7 @@ update_rc_files() {
       git push origin master > /dev/null 2>&1 || echo "⚠️  Push failed. Please resolve manually."
     fi
   else
-    echo "Aborting - push canceled - erasing changes in rc"
-    git reset --hard HEAD~1
+    echo "Aborting - push canceled"
     cd "$lwd"
     return
   fi
