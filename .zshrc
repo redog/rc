@@ -244,3 +244,23 @@ export CPGPT_ORGID=”org-mXtmTz67aAt9GTfmXaQZ72Dp”
 
 export PYTHONPATH="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/"
 export PROMPT
+
+#function create_and_activate_venv() {
+# init venv
+function iv() {
+  # Get the name of the venv to create, or default to "venv".
+  venv_name=${1:-venv}
+
+  # Check if the venv already exists.
+  if [[ -d "$venv_name" ]]; then
+    echo "The venv '$venv_name' already exists, skipping creation."
+  else
+    echo "Creating the venv '$venv_name'."
+    python3 -m venv "$venv_name"
+  fi
+
+  # Activate the venv.
+  source "$venv_name/bin/activate"
+
+  echo "The venv '$venv_name' is now active."
+}
