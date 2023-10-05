@@ -65,6 +65,22 @@ nvc() {
   cd .config/nvim/lua/custom/
 }
 
+pull_all_repos() {
+  for dir in $HOME/src/*; do
+    if [ -d "$dir" ]; then
+      if [ -d "$dir/.git" ]; then
+        echo "\033[1;34m--------------------------------------------------\033[0m"
+        echo "\033[1;32m📂 Pulling $dir...\033[0m"
+        echo "\033[1;34m--------------------------------------------------\033[0m"
+        git -C "$dir" pull
+        echo "\033[1;34m--------------------------------------------------\033[0m"
+        echo ""
+      fi
+    fi
+  done
+
+}
+
 check_git_status() {
   for dir in $HOME/src/*; do
     if [ -d "$dir" ]; then
@@ -231,6 +247,7 @@ cdtmp() {
 alias s='cd ..'
 alias urc='update_rc_files'
 alias gits='check_git_status'
+alias prs='pull_all_repos'
 # move to aliases file and merege with linux/bash aliases
 alias lb='load_bws'
 alias ub='unload_bws'
