@@ -65,7 +65,23 @@ nvc() {
   cd .config/nvim/lua/custom/
 }
 
+check_git_status() {
+  for dir in $HOME/src/*; do
+    if [ -d "$dir" ]; then
+      if [ -d "$dir/.git" ]; then
+        echo "\033[1;34m--------------------------------------------------\033[0m"
+        echo "\033[1;32m📂 Checking git status in $dir...\033[0m"
+        echo "\033[1;34m--------------------------------------------------\033[0m"
+        git -C "$dir" status -s
+        echo "\033[1;34m--------------------------------------------------\033[0m"
+        echo ""
+      fi
+    fi
+  done
+}
+
 update_rc_files() {
+  # work in progress needs some polish
   local verbose=false
   while getopts "v" opt; do
      case $opt in
@@ -211,6 +227,7 @@ cdtmp() {
 
 alias s='cd ..'
 alias urc='update_rc_files'
+alias gits='check_git_status'
 # move to aliases file and merege with linux/bash aliases
 alias lb='load_bws'
 alias ub='unload_bws'
