@@ -99,6 +99,22 @@ check_git_status() {
   done
 }
 
+rc_diff() {
+  # Save the current working directory
+  local lwd
+  lwd=$(pwd)
+  # rc git repo
+  cd ${HOME}/.dotfiles
+    rc_files=($(git ls-files))
+    for f in "${rc_files[@]}"; do
+      output=$(diff -q "$HOME/$f" "$HOME/.dotfiles/$f" 2>/dev/null)
+      if [ $? -eq 1 ]; then
+        echo "$output"
+      fi
+    done
+  cd "$lwd"
+}
+
 update_rc_files() {
   # work in progress needs some polish
   local verbose=false
@@ -206,6 +222,7 @@ unload_cgpt_key() {
 load_gh_key() {
   pass=$(security find-generic-password -s 'github' -w)
   export GITHUB_ACCESS_TOKEN="$pass"
+  export GH_TOKEN="$pass"
 }
 
 unload_gh_key() {
