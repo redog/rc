@@ -217,6 +217,39 @@ export QT_IM_MODULE=ibus
 umask 022
 #  enable bash to provide context sensitive tab completion for gst-launch
 complete -C gst-complete gst-launch
+pull_all_repos() {
+  for dir in $HOME/src/*; do
+    if [ -d "$dir" ]; then
+      if [ -d "$dir/.git" ]; then
+        echo "\033[1;34m--------------------------------------------------\033[0m"
+        echo "\033[1;32m📂 Pulling $dir...\033[0m"
+        echo "\033[1;34m--------------------------------------------------\033[0m"
+        git -C "$dir" pull
+        echo "\033[1;34m--------------------------------------------------\033[0m"
+        echo ""
+      fi
+    fi
+  done
+
+}
+
+check_git_status() {
+  for dir in $HOME/src/*; do
+    if [ -d "$dir" ]; then
+      if [ -d "$dir/.git" ]; then
+        git_status=$(git -C "$dir" status -s)
+        if [ ! -z "$git_status" ]; then
+          echo "\033[1;34m--------------------------------------------------\033[0m"
+          echo "\033[1;32m📂 Checking git status in $dir...\033[0m"
+          echo "\033[1;34m--------------------------------------------------\033[0m"
+          echo "$git_status"
+          echo "\033[1;34m--------------------------------------------------\033[0m"
+          echo ""
+        fi
+      fi
+    fi
+  done
+}
 
 update_rc_files() {
   local verbose=false
