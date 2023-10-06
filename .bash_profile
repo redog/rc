@@ -218,6 +218,80 @@ umask 022
 #  enable bash to provide context sensitive tab completion for gst-launch
 complete -C gst-complete gst-launch
 
+# init venv
+function iv() {
+  # Get the name of the venv to create, or default to "venv".
+  venv_name=${1:-venv}
+
+  # Check if the venv already exists.
+  if [[ -d "$venv_name" ]]; then
+    echo "The venv '$venv_name' already exists, skipping creation."
+  else
+    echo "Creating the venv '$venv_name'."
+    python3 -m venv "$venv_name"
+  fi
+
+  # Activate the venv.
+  source "$venv_name/bin/activate"
+
+  echo "The venv '$venv_name' is now active."
+}
+
+# helper functinos
+nvc() {
+  cd .config/nvim/lua/custom/
+}
+
+pull_all_repos() {
+  for dir in $HOME/src/*; do
+    if [ -d "$dir" ]; then
+      if [ -d "$dir/.git" ]; then
+        echo "\033[1;34m--------------------------------------------------\033[0m"
+        echo "\033[1;32m📂 Pulling $dir...\033[0m"
+        echo "\033[1;34m--------------------------------------------------\033[0m"
+        git -C "$dir" pull
+        echo "\033[1;34m--------------------------------------------------\033[0m"
+        echo ""
+      fi
+    fi
+  done
+
+}
+
+check_git_status() {
+  for dir in $HOME/src/*; do
+    if [ -d "$dir" ]; then
+      if [ -d "$dir/.git" ]; then
+        git_status=$(git -C "$dir" status -s)
+        if [ ! -z "$git_status" ]; then
+          echo "\033[1;34m--------------------------------------------------\033[0m"
+          echo "\033[1;32m📂 Checking git status in $dir...\033[0m"
+          echo "\033[1;34m--------------------------------------------------\033[0m"
+          echo "$git_status"
+          echo "\033[1;34m--------------------------------------------------\033[0m"
+          echo ""
+        fi
+      fi
+    fi
+  done
+}
+
+rc_diff() {
+  # Save the current working directory
+  local lwd
+  lwd=$(pwd)
+  # rc git repo
+  cd ${HOME}/.dotfiles
+    rc_files=($(git ls-files))
+    for f in "${rc_files[@]}"; do
+      output=$(diff -q "$HOME/$f" "$HOME/.dotfiles/$f" 2>/dev/null)
+      if [ $? -eq 1 ]; then
+        echo "$output"
+      fi
+    done
+  cd "$lwd"
+}
+
 update_rc_files() {
   local verbose=false
   while getopts "v" opt; do

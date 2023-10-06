@@ -7,3 +7,5 @@
 	helper = cache --timeout=1800
 [push]
 	default = current
+[color]
+	ui = true
