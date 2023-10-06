@@ -1,5 +1,4 @@
 set editing-mode vi
 set horizontal-scroll-mode On
 set show-all-if-ambiguous on
-set bell-style none`
-
+set bell-style none

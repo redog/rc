@@ -408,6 +408,22 @@ function key_git_repo() {
   fi
   git config user.github.token "${GITHUB_ACCESS_TOKEN}"
 }
+
+rc_diff() {
+  # Save the current working directory
+  local lwd
+  lwd=$(pwd)
+  # rc git repo
+  cd ${HOME}/.dotfiles
+    rc_files=($(git ls-files))
+    for f in "${rc_files[@]}"; do
+      output=$(diff -q "$HOME/$f" "$HOME/.dotfiles/$f" 2>/dev/null)
+      if [ $? -eq 1 ]; then
+        echo "$output"
+      fi
+    done
+  cd "$lwd"
+}
 ################
 # tor/proxy    #
 # Yes fuck you #

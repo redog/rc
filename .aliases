@@ -3,7 +3,7 @@
 ##################
 alias aa='echo $@'
 
-
+alias s='cd ..'
 alias ls='ls -lrtN --color'
 alias lsd='ls -l --color | grep "^d"'
 alias lsdo='ls -a --color=none | grep "\ \."'
