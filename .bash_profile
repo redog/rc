@@ -217,20 +217,24 @@ export QT_IM_MODULE=ibus
 umask 022
 #  enable bash to provide context sensitive tab completion for gst-launch
 complete -C gst-complete gst-launch
+
+print_line() {
+  printf "\033[1;34m--------------------------------------------------\033[0m\n"
+}
+
 pull_all_repos() {
   for dir in $HOME/src/*; do
     if [ -d "$dir" ]; then
       if [ -d "$dir/.git" ]; then
-        echo "\033[1;34m--------------------------------------------------\033[0m"
-        echo "\033[1;32m📂 Pulling $dir...\033[0m"
-        echo "\033[1;34m--------------------------------------------------\033[0m"
+        print_line
+        printf "\033[1;32m📂 Pulling %s...\033[0m\n" "$dir"
+        print_line
         git -C "$dir" pull
-        echo "\033[1;34m--------------------------------------------------\033[0m"
-        echo ""
+        print_line
+        printf "\n"
       fi
     fi
   done
-
 }
 
 check_git_status() {
@@ -239,12 +243,12 @@ check_git_status() {
       if [ -d "$dir/.git" ]; then
         git_status=$(git -C "$dir" status -s)
         if [ ! -z "$git_status" ]; then
-          echo "\033[1;34m--------------------------------------------------\033[0m"
-          echo "\033[1;32m📂 Checking git status in $dir...\033[0m"
-          echo "\033[1;34m--------------------------------------------------\033[0m"
-          echo "$git_status"
-          echo "\033[1;34m--------------------------------------------------\033[0m"
-          echo ""
+          print_line
+          printf "\033[1;32m📂 Checking git status in %s...\033[0m\n" "$dir"
+          print_line
+          printf "%s\n" "$git_status"
+          print_line
+          printf "\n"
         fi
       fi
     fi
@@ -325,7 +329,7 @@ update_rc_files() {
 cd "$lwd"
 }
 
-#function mv() {
+#mv() {
 #  if [ "$#" -ne 1 ]; then
 #    command mv "$@"
 #    return
@@ -338,15 +342,15 @@ cd "$lwd"
 #  mv -v "$1" "$newfilename"
 #}
 
-function vd() {
+vd() {
 	vim - -c ":vnew $1 | windo diffthis"
 }
 
-function rmpyc() {
+rmpyc() {
 	rm *.pyc;
 	}
 
-function ex() {
+ex() {
 	if [ -f $1 ]; then
 		case $1 in
 			*.tar.bz2) 	tar xjf $1 ;;
@@ -366,7 +370,7 @@ function ex() {
 	fi
 }
 
-function color_index() {
+color_index() {
   # Show an index of all available bash colors
   echo -e "\n              Usage: \\\033[*;**(;**)m"
   echo -e   "            Default: \\\033[0m"
@@ -394,52 +398,74 @@ function color_index() {
   echo -e "$blank_line" "\n" # Bottom border
 }
 
-function load_bws_key() {
+load_bws_key() {
   export DISPLAY=:0
   pass=$(secret-tool lookup bitwarden accesstoken)
   export BWS_ACCESS_TOKEN=${pass}
 }
-function unload_bws_key() {
+unload_bws_key() {
   unset BWS_ACCESS_TOKEN
 
 }
-function load_notion_key() {
+load_notion_key() {
   key=$(bws get secret 7909c25f-f3d3-44ea-8b86-aff8010d5ce9 -o tsv | tail -n 1 | awk '{print $3}')
   export NOTION_API_TOKEN="$key"
 }
-function unload_notion_key() {
+unload_notion_key() {
   unset NOTION_API_TOKEN
 }
-function load_gh_key() {
+load_gh_key() {
   export DISPLAY=:0
   key=$(secret-tool lookup github accesstoken)
   export GITHUB_ACCESS_TOKEN="$key"
 }
 
-function unload_gh_key() {
+unload_gh_key() {
   unset GITHUB_ACCESS_TOKEN
 }
-function load_cgpt_key() {
+load_cgpt_key() {
   export DISPLAY=:0
   key=$(secret-tool lookup chatgpt accesstoken)
   export CGPT_ACCESS_TOKEN
 }
 
-function unload_cgpt_key() {
+unload_cgpt_key() {
   unset CGPT_ACCESS_TOKEN
 }
-function key_init() {
+
+load_vault_pass() {
+    pass=$($HOME/bin/bws secret get 42e1e10a-8ea9-427c-9c9e-b070013edb70 -o tsv | tail -n 1 | awk '{print $3}')
+    export VAULT_PASSWORD="$pass"
+  }
+
+unload_vault_pass() {
+    unset VAULT_PASSWORD
+  }
+
+key_init() {
   load_bws_key
   load_notion_key
   load_cgpt_key
   load_gh_key
+  load_vault_pass
 }
-function key_git_repo() {
+
+key_git_repo() {
   if [[ -z "${GITHUB_ACCESS_TOKEN}" ]]; then
     echo "GITHUB_ACCESS_TOKEN is not set."
     return 1
   fi
   git config user.github.token "${GITHUB_ACCESS_TOKEN}"
+}
+
+lsf() {
+  echo -e "\033[1;4;32mFunctions:\033[0m"
+  declare -F | awk '{print $3}' | awk '{printf "\033[1;93m%-20s\033[0m\n", $0}' | sort | column -c 80
+}
+
+lsa() {
+  echo -e "\033[1;4;32mAliases:\033[0m"
+  alias | awk -F "=" '{gsub(/^alias /, ""); printf "\033[1;37m%s (" "\033[0;93m%s" "\033[0m" ")\n", $1, substr($0, index($0, $2))}' | sort | column -c 80
 }
 
 rc_diff() {
@@ -457,6 +483,7 @@ rc_diff() {
     done
   cd "$lwd"
 }
+
 ################
 # tor/proxy    #
 # Yes fuck you #
