@@ -59,6 +59,19 @@ bindkey '^N' history-incremental-search-forward
 # because I like l and k ?
 bindkey '^k' clear-screen
 
+# list my functions
+lsf() {
+  echo -e "\033[1;4;32mFunctions:\033[0m"
+  print -l ${(ok)functions} | awk '{printf "\033[1;93m%s\033[0m\n", $0}' | sort | column -c 80
+}
+
+
+# list my aliases
+lsa() {
+  echo -e "\033[1;4;32mAliases:\033[0m"
+  alias | awk -F "=" '{printf "\033[1;37m" $1 " (" "\033[0;93m" substr($0, index($0,$2)) "\033[0m" ")" "\n"}' | sort | column -c 80
+}
+
 
 # helper functinos
 nvc() {
