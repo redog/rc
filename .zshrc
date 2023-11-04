@@ -34,7 +34,16 @@ bindkey '^R' history-incremental-search-backward
 bindkey '^N' history-incremental-search-forward
 # because I like l and k ?
 bindkey '^k' clear-screen
+
+
+#export CLICOLOR=1
+#export TERM=xterm-256color
+
+#ansible has issues
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
 export CPGPT_ORGID=”org-mXtmTz67aAt9GTfmXaQZ72Dp”
 
 export PYTHONPATH="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/"
 export PROMPT
+

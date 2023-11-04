@@ -1,6 +1,11 @@
 
-# Setting PATH for Python 3.11
-# The original version is saved in .zprofile.pysave
-PATH="$HOME/Library/Python/3.11/bin:/Library/Frameworks/Python.framework/Versions/3.11/bin:$HOME/bin:$HOME/flutter/bin:$HOME/.pub-cache/bin:${HOME}/Library/Android/sdk/tools:${HOME}/Library/Android/sdk/platform-tools:${PATH}"
+JAVA_HOME="/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home"
 
-export PATH
+PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/bin:$HOME/flutter/bin:$HOME/.pub-cache/bin
+
+
+export PATH JAVA_HOME
+
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools

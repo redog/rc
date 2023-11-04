@@ -40,4 +40,7 @@ else
   vim.api.nvim_set_keymap('n', '<leader>g', [[<Cmd>lua toggle_signcolumn()<CR>]], { noremap = true, silent = true })
 
 
+  vim.opt.background = 'dark'
+  -- Requires +termguicolors 
+  vim.opt.termguicolors = true
 end
