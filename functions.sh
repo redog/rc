@@ -1,7 +1,9 @@
 if [[ $SHELL == *"zsh"* ]]; then
   # Zsh-specific code
+  :
 elif [[ $SHELL == *"bash"* ]]; then
   # Bash-specific code
+  :
 fi
 
 # list my functions

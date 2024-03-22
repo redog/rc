@@ -2,6 +2,10 @@
 ##  MY DEFAULTS  ##
 ################### 
 #set -o ignoreeof
+# my functions
+source ~/.dotfiles/functions.sh
+#keep at top
+
 xset -b
 set -o vi
 set -o notify
@@ -114,7 +118,8 @@ eval `dircolors -b`
 ##################
 if [[ -f ${HOME}/.aliases ]]
 	then
-	source ~/.aliases
+	#source ~/.aliases
+  source ~/.dotfiles/aliases.sh
 fi
 #########################
 ##  END OF MY ALIASES  ##
